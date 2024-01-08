@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <title>Deepfake Detection</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin-bottom: 40px; /* Adjusted margin for the fixed footer */
+        }
+
+        .container {
+            margin-top: 20px; /* Adjusted margin for the top container */
+            margin-bottom: 20px; /* Adjusted margin for the bottom container */
+        }
+
+        .card {
+            border: 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            border-radius: 15px 15px 0 0;
+            padding: 15px; /* Adjusted padding for the card header */
+        }
+
+        .card-title {
+            color: #ffffff;
+            font-size: 1.5rem; /* Adjusted font size for the card title */
+        }
+
+        .card-body {
+            padding: 15px; /* Adjusted padding for the card body */
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 5px 0; /* Adjusted padding for the footer */
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+        /* Add custom styles for the result page */
+        .video-frame {
+            max-width: 100%; /* Adjust the max-width as needed */
+            height: auto;
+        }
+        .info-card {
+            margin-top: 20px;
+        }
+        .info-card,
+        .detection-label {
+            margin-left: 100px; /* Adjusted margin for the info card and progress container */
+        }
+
+        .progress-container {
+            margin-left: 145px;
+            margin-bottom: 20px;
+        }
+        
+    </style>
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">DeFendReality</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Deepfake Detection Result</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Video frame -->
+                <div class="col-md-8">
+                    <video controls class="video-frame">
+                        <source src="{{ video_url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <!-- Video Information -->
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <h5>Video Information:</h5>
+                        <br>
+                        <p><strong style="color: #034f84;">Name:</strong> {{ video_info['name'] }}</p>
+                        <p><strong style="color: #034f84;">Size:</strong> {{ video_info['size'] }}</p>
+                        <p><strong style="color: #034f84;">User:</strong> {{ video_info['user'] }}</p>
+                        <p><strong style="color: #034f84;">Date:</strong> {{ video_info['source'] }}</p>
+
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <!-- Deepfake Detection Rate Label -->
+                    <div class="detection-label">
+                        <h5 class="bold-text">Deepfake Detection Rate:</h5>
+                    </div>
+
+                    <br>
+                    
+                    <!-- Yuvarlak İlerleme Çubuğu -->
+                    <div class="progress-container">
+                        <svg class="circle-progress" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Yuvarlak Çerçeve -->
+                            <circle class="progress-circle" cx="75" cy="75" r="70" fill="none" stroke="#ccc" stroke-width="8"></circle>
+                            
+                            <!-- İlerleme Çubuğu -->
+                            <circle class="progress-bar" cx="75" cy="75" r="70" fill="none" stroke="#4CAF50" stroke-width="8" stroke-dasharray="0 440"></circle>
+                            
+                            <!-- Yüzde Etiketi -->
+                            <text class="progress-label" x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="24" fill="#333"></text>
+                        </svg>
+                    </div>
+
+                    <!-- JavaScript ile değeri al -->
+                    <script>
+                        var progressValue = parseFloat("{{ video_info['per'] }}");
+                        var totalValue = 100; // Yüzde cinsinden tam değer
+
+                        // İlerleme çubuğunu güncelle
+                        document.querySelector(".progress-bar").style.strokeDasharray = progressValue + " " + totalValue;
+
+                        // Yüzde etiketini güncelle
+                        document.querySelector(".progress-label").textContent = Math.round((progressValue / totalValue) * 100) + "%";
+                    </script>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<footer>
+    <div class="container text-center">
+        <p>&copy; 2023 Deepfake Detection</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function updateFileName() {
+        var fileName = document.getElementById("customFile").files[0].name;
+        document.getElementById("customFile").nextElementSibling.innerHTML = fileName;
+    }
+</script>
+
+</body>
+</html>
