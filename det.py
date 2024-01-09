@@ -8,7 +8,7 @@ def run(video_path , video_path2):
 
     start_time = time.time()
 
-    # Deepfake tespiti için eşik değerleri
+    # Equivalents for deepfake detection
     threshold_face_similarity = 0.99
     threshold_frames_for_deepfake = 15
 
@@ -56,7 +56,7 @@ def run(video_path , video_path2):
 
                         if deepfake_count > threshold_frames_for_deepfake:
                             cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), (0, 0, 255), 2)
-                            cv2.putText(frame, f'Deepfake Tespit Edildi - Frame {frame_count}', (10, 30),
+                            cv2.putText(frame, f'Deepfake Detected - Frame {frame_count}', (10, 30),
                                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
                             deep_fake_frame_count += 1
                         else:
@@ -72,7 +72,7 @@ def run(video_path , video_path2):
     end_time = time.time()
     execution_time = end_time - start_time
 
-    print(f"Toplam Çalışma Süresi: {execution_time} saniye")
+    print(f"Total Execution Time: {execution_time} seconds")
 
     print(frame_count)
     print(deep_fake_frame_count)
@@ -84,7 +84,6 @@ def run(video_path , video_path2):
     if accuracy>100:
         accuracy = 95
 
-    # Sonucu ekrana yazdır
     return int(accuracy)
 
     

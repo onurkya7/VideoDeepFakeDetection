@@ -34,7 +34,7 @@ def upload_file():
 
         video_path2 = os.path.join(app.config['UPLOAD_FOLDER'], "1" + filename)
 
-        module = importlib.import_module("det20")
+        module = importlib.import_module("det")
         function = getattr(module, "run")
 
         result_from_det = function(video_path ,video_path2)
