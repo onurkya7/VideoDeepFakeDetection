@@ -43,6 +43,17 @@ pip install -r requirements.txt
 7- Processed frames are written to an output video file.
 
 
+## Contributing
+
+If you want to contribute to this project, please follow these steps:
+
+- **Fork:** Fork this repository to your GitHub account.
+- **Create a Branch:** Create a new branch to add a new feature or fix a bug.
+- **Commit:** Add clear commit messages explaining your changes.
+- **Push:** Push your changes to the repository you forked.
+- **Pull Request:** Create a pull request on GitHub.
+
+
 ## License
 
 Our project is licensed under the [MIT License](LICENSE).
