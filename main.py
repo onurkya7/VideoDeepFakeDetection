@@ -10,7 +10,6 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'static/videos'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Landing page
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -34,7 +33,7 @@ def upload_file():
 
         video_path2 = os.path.join(app.config['UPLOAD_FOLDER'], "1" + filename)
 
-        module = importlib.import_module("det")
+        module = importlib.import_module("deepfake_detector")
         function = getattr(module, "run")
 
         result_from_det = function(video_path ,video_path2)

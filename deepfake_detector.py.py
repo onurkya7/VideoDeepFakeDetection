@@ -61,7 +61,7 @@ def run(video_path , video_path2):
                             deep_fake_frame_count += 1
                         else:
                             cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), (0, 255, 0), 2)
-                            cv2.putText(frame, 'Real', (box[0], box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2,
+                            cv2.putText(frame, 'Real Frame', (box[0], box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2,
                                         cv2.LINE_AA)
 
                     previous_face_encoding = current_face_encoding
@@ -74,8 +74,6 @@ def run(video_path , video_path2):
 
     print(f"Total Execution Time: {execution_time} seconds")
 
-    print(frame_count)
-    print(deep_fake_frame_count)
     cap.release()
     out.release()
 
